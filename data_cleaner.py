@@ -6,12 +6,14 @@ import sys
 
 
 #notes: 
-#	percentage_25_64.csv goes from 		1960 to 2014
-#	percentage_65_plus.csv goes from 	1960 to 2015
-#	us_population.csv goes from 		1960 to 2015
-#	gdp.csv goes from 					1929 to 2016
+#	25-64 OG data goes from		 		1960 to 2014
+#	65+ OG data goes from			 	1960 to 2015
+#	US population OG data goes from 	1960 to 2015
+#	GDP OG data goes from 				1929 to 2016
 # 	congress-terms.csv goes from 		1947 to 2013
+#	unemployment OG data goes from 		1947 to 2016
 
+ 
 #change these to get the years that you want, note the info above
 #implemented so that these are inclusive
 MIN_YEAR = 1960	
@@ -30,6 +32,15 @@ cleaned_us_population = "clean_data/us_population.csv"
 og_gdp = "dirty_data/OG_gdp_in_billions.csv"
 cleaned_gdp = "clean_data/gdp.csv"
 
+og_unemployment = "dirty_data/OG_unemployment_data.csv"
+cleaned_unemployment = "clean_data/unemployment.csv"
+
+og_gdp_change = "dirty_data/OG_gdp_change.csv"
+cleaned_gdp_change = "clean_data/gdp_change.csv"
+
+og_pop_change = "dirty_data/OG_us_population_change_by_year.csv"
+cleaned_pop_change = "clean_data/us_population_change.csv"
+
 '''
 fixes date formatting
 '''
@@ -43,7 +54,6 @@ writes info back to file
 def write_back_to_file(filename, data):
 	g = open(filename, 'w')
 	for c in data:
-		print c
 		g.write(c)
 	g.close()
 
@@ -143,7 +153,77 @@ def clean_gdp(dirty,clean):
 
 	write_back_to_file(clean, cleaned_data)
 
+'''
+goal:
+1. constrain dates to MAX_YEAR and MIN_YEAR
+'''
+def clean_unemployment(dirty,clean):
+	cleaned_data = []
+	with open(dirty, 'rb') as f:
+		reader = csv.reader(f)
+		header = next(reader)
+		h = header[0] + ',' + header[1] + '\n'
+		cleaned_data.append(h)
+		for row in reader:
+			year = row[0]
+			if int(year) <= MAX_YEAR and int(year) >= MIN_YEAR:	
+				unemployment = row[1]
+				cleaned = year + ',' + unemployment + '\n'
+				cleaned_data.append(cleaned)
+	f.close()
 
+	write_back_to_file(clean, cleaned_data)
+
+
+'''
+goal:
+1. constrain dates to MAX_YEAR and MIN_YEAR
+'''
+
+def clean_gdp_change(dirty,clean):
+	cleaned_data = []
+	with open(dirty, 'rb') as f:
+		reader = csv.reader(f)
+		header = next(reader)
+		h = header[0] + ',' + header[1] + '\n'
+		cleaned_data.append(h)
+		for row in reader:
+			year = row[0]
+			if int(year) <= MAX_YEAR and int(year) >= MIN_YEAR:	
+				gdp_change = row[1]
+				cleaned = year + ',' + gdp_change + '\n'
+				cleaned_data.append(cleaned)
+	f.close()
+
+	write_back_to_file(clean, cleaned_data)
+
+'''
+goals:
+1. get rid of quoted "amount change" (comment labeled line out if you want to keep this)
+2. flip dates so that they're going from lowest to highest
+3. constrain dates
+'''
+def clean_pop_change(dirty,clean):
+	cleaned_data = []
+	with open(dirty, 'rb') as f:
+		reader = csv.reader(f)
+		header = next(reader)
+		h = header[0] + ',' + header[1] + '\n'
+		###comment out above line and uncomment below line if you want to include actual amount the population changed
+		#h = header[0] + ',' + header[1] + ',' + header[2] + '\n'
+		for row in reader:
+			year = row[0]
+			if int(year) <= MAX_YEAR and int(year) >= MIN_YEAR:	
+				pop_change = row[1]
+				cleaned = year + ',' + pop_change + '\n'
+				###comment out above line and uncomment below line if you want to include actual amount the population changed
+				#cleaned = year + ',' + pop_change + ',' + row[2] + '\n'
+				cleaned_data.insert(0, cleaned)			#inserts at end of the list, which flips dates around
+				#cleaned_data.append(cleaned)
+		cleaned_data.insert(0, h)	#this happens later than usual b/c we need to put it at index 0 of list
+	f.close()
+
+	write_back_to_file(clean, cleaned_data)
 
 	
 
@@ -151,3 +231,6 @@ clean_65_plus(og_65_plus,cleaned_65_plus)
 us_population_dict = clean_us_population(og_us_population,cleaned_us_population)
 clean_25_64(og_25_to_64,cleaned_25_to_64,us_population_dict)
 clean_gdp(og_gdp,cleaned_gdp)
+clean_unemployment(og_unemployment, cleaned_unemployment)
+clean_gdp_change(og_gdp_change,cleaned_gdp_change)
+clean_pop_change(og_pop_change,cleaned_pop_change)
