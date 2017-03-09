@@ -121,11 +121,10 @@ def clean_25_64(dirty, clean, us_pop):
 	write_back_to_file(clean, cleaned_data)
 '''
 goal:
-1. turn "data in billions" into just "straight billions"
+1. turn "data in billions" into just "straight billions" (commented out b/c this made stuff weird)
 2. restrain dates to MAX_YEAR and MIN_YEAR
 '''
 def clean_gdp(dirty,clean):
-	print "thing"
 	cleaned_data = []
 	with open(dirty, 'rb') as f:
 		reader = csv.reader(f)
@@ -133,19 +132,18 @@ def clean_gdp(dirty,clean):
 		h = header[0] + ',' + header[1] + '\n'
 		cleaned_data.append(h)
 		for row in reader:
-			print row
 			year = row[0]
 			if int(year) <= MAX_YEAR and int(year) >= MIN_YEAR:	
 				gdp = row[1]
-				print gdp
 				####comment out below if you don't want to change this to billions
-				gdp = float(gdp) * 1000000000
-				print gdp
+				#gdp = float(gdp) * 1000000000
 				cleaned = year + ',' + str(gdp) + '\n'
 				cleaned_data.append(cleaned)
 	f.close()
 
 	write_back_to_file(clean, cleaned_data)
+
+
 
 	
 
