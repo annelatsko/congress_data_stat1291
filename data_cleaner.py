@@ -12,6 +12,14 @@ cleaned_25_to_64 = "clean_data/percentage_25_64.csv"
 
 og_us_population = "dirty_data/OG_us_population.csv"
 cleaned_us_population = "clean_data/us_population.csv"
+
+'''
+fixes date formatting
+'''
+def clean_year(y):
+	year = y.split('-')
+	return year[0]
+
 '''
 goals:
 1. get rid of weird date format
@@ -25,9 +33,7 @@ def clean_65_plus(dirty, clean):
 		h = header[0] + ',' + header[1] + '\n'
 		cleaned_data.append(h)
 		for row in reader:
-			year = row[0]
-			year = year.split('-')
-			year = year[0]
+			year = clean_year(row[0])
 			percentage = row[1]
 			percentage = str(round(float(percentage), 2))
 			cleaned = year + ',' + percentage + '\n'
@@ -42,17 +48,17 @@ def clean_65_plus(dirty, clean):
 
 def clean_us_population(dirty,clean):
 	cleaned_data = []
+	us_pop = {}
 	with open(dirty, 'rb') as f:
 		reader = csv.reader(f)
 		header = next(reader)
 		h = header[0] + ',' + header[1] + '\n'
 		cleaned_data.append(h)
 		for row in reader:
-			year = row[0]
-			year = year.split('-')
-			year = year[0]
+			year = clean_year(row[0])
 			total = row[1]
 			cleaned = year + ',' + total + '\n'
+			us_pop[year] = total
 			cleaned_data.append(cleaned)	
 	#print cleaned_data
 	f.close()
@@ -61,6 +67,8 @@ def clean_us_population(dirty,clean):
 	for c in cleaned_data:
 		g.write(c)
 	g.close()
+	return us_pop
+
 
 '''
 goals:
@@ -68,7 +76,7 @@ goals:
 2. divide population between 25 and 64 by the total population
 3. restrain significant digits 
 '''
-def clean_25_64(dirty, clean, total_population_file):
+def clean_25_64(dirty, clean, us_pop):
 	cleaned_data = []
 	total_population = {}
 
@@ -78,14 +86,15 @@ def clean_25_64(dirty, clean, total_population_file):
 		h = header[0] + ',' + header[1] + '\n'
 		cleaned_data.append(h)
 		for row in reader:
-			year = row[0]
-			year = year.split('-')
-			year = year[0]
-			population = row[1]
-			percentage = str(round(float(percentage), 2))
-			cleaned = year + ',' + percentage + '\n'
-			cleaned_data.append(cleaned)
-	print cleaned_data
+			year = clean_year(row[0])
+			target_population = row[1]
+			print "target population ", target_population
+			total_pop_that_year = us_pop.get(year)
+			print total_pop_that_year
+			if total_pop_that_year != None:
+				percentage = str(round(float(target_population)/int(total_pop_that_year),2))
+				cleaned = year + ',' + percentage + '\n'
+				cleaned_data.append(cleaned)
 	f.close()
 
 	g = open(clean, 'w')
@@ -94,5 +103,5 @@ def clean_25_64(dirty, clean, total_population_file):
 	g.close()
 
 clean_65_plus(og_65_plus,cleaned_65_plus)
-clean_us_population(og_us_population,cleaned_us_population)
-clean_25_64(og_25_to_64,cleaned_25_to_64)
+us_population_dict = clean_us_population(og_us_population,cleaned_us_population)
+clean_25_64(og_25_to_64,cleaned_25_to_64,us_population_dict)
