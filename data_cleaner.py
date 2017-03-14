@@ -253,11 +253,13 @@ def clean_congress(dirty,clean):
 
 	write_back_to_file(clean, cleaned_data)
 
-clean_65_plus(og_65_plus,cleaned_65_plus)
-us_population_dict = clean_us_population(og_us_population,cleaned_us_population)
-clean_25_64(og_25_to_64,cleaned_25_to_64,us_population_dict)
-clean_gdp(og_gdp,cleaned_gdp)
-clean_unemployment(og_unemployment, cleaned_unemployment)
-clean_gdp_change(og_gdp_change,cleaned_gdp_change)
-clean_pop_change(og_pop_change,cleaned_pop_change)
-clean_congress(og_congress,cleaned_congress)
+
+if __name__ == "__main__":
+	clean_65_plus(og_65_plus,cleaned_65_plus)
+	us_population_dict = clean_us_population(og_us_population,cleaned_us_population)
+	clean_25_64(og_25_to_64,cleaned_25_to_64,us_population_dict)
+	clean_gdp(og_gdp,cleaned_gdp)
+	clean_unemployment(og_unemployment, cleaned_unemployment)
+	clean_gdp_change(og_gdp_change,cleaned_gdp_change)
+	clean_pop_change(og_pop_change,cleaned_pop_change)
+	clean_congress(og_congress,cleaned_congress)
