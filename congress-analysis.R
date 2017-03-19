@@ -18,6 +18,7 @@ avg_age_per_year <- ddply(congress.df, .(termstart), summarize,  avg_age=mean(ag
 head(avg_age_per_year)
 
 ###Average age of congress per party per year (basically what fivethirtyeight did)
-#####http://stackoverflow.com/questions/21208801/group-by-multiple-columns-in-dplyr-using-string-vector-input
 cols <- c("termstart","party")
 avg_age_per_party_per_year <- ddply(congress.df, cols, summarize, age=mean(age))
+
+###Average age of new members in congress
