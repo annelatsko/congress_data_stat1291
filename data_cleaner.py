@@ -247,6 +247,8 @@ def clean_congress(dirty,clean):
 		for row in reader:	
 			year = clean_year(row[11])
 			if int(year) <= MAX_YEAR and int(year) >= MIN_YEAR:	
+				if row[9] == "ID":
+					row[9] = "I";
 				cleaned = row[1] + ',' + row[8] + ',' + row[9] + ',' + row[10] + ',' + year + ',' + row[12] + '\n'
 				cleaned_data.append(cleaned)
 	f.close()
