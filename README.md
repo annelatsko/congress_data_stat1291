@@ -27,3 +27,18 @@ If you already have GitHub setup, skip to step 3 for general workflow:
 5. Run `python isolate_new_members.py`
 
 data_cleaner.py should be run before agglomerate.py. Run isolate_new_members.py last.
+
+### How to Contribute:
+Everyone needs to hmu w/their GitHub username so that I can add you as a collaborater.
+
+#### Without using the command line:
+This is a bad way to do it, but just hit the edit button on the file that you contributed to and then add your stuff at the bottom. Mark it with your name in a comment. If you change any work that anyone else did, leave a note or whatever. Hit the green button at the bottom to commit it. Leave a note detailing what you changed. If something bad happens, I'll fix it.
+
+#### With the command line:
+1. Be in the project's folder on the command line.
+2. Run `git add .`
+3. Run `git status` to make sure that everything is green.
+4. Run `git commit -m "<commit message>"`
+5. Run `git push origin master`
+Again, if anything breaks or if you get a merge conflict message, I'll fix it.
+
