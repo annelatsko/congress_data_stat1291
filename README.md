@@ -6,7 +6,7 @@ There was some weird stuff with the data that was obtained from FiveThirtyEight,
 
 
 ### If you don't actually care about using GitHub and just want the full_data.csv:
-Easy, hit the green button on the far right that says "Clone or download" and select "Download ZIP"
+Easy, hit the green button on the far right that says "Clone or download" and select "Download ZIP".
 *Be warned that the data might change as stuff gets added. Be sure that you check for updates.*
 
 ### If you do care about using Github
@@ -19,4 +19,10 @@ If you already have GitHub setup, skip to step 3 for general workflow:
 6. Run `git clone <the URL you copied from step 3>`. This will clone the project into the folder that you just created. If you go into the File Explorer, you should be able to see that the files have been added.
 7. Now that you have the files that you want, you can `cd` into the folder whenever you want and run `git pull origin master`. This will allow you to automatically pull any changes that I've made recently so that you have the most up to date files without having to recopy/redownload them.
 
+### If you're interested in running the python files yourself:
+1. Install Python. I'm using 2.7. I suggest using Anaconda for the installation.
+2. Using the command line, navigate to the project that you cloned/downloaded.
+3. Run `python data_cleaner.py`
+4. Run `python agglomerate.py`
 
+data_cleaner.py should be run before agglomerate.py.
