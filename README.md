@@ -24,5 +24,6 @@ If you already have GitHub setup, skip to step 3 for general workflow:
 2. Using the command line, navigate to the project that you cloned/downloaded.
 3. Run `python data_cleaner.py`
 4. Run `python agglomerate.py`
+5. Run `python isolate_new_members.py`
 
-data_cleaner.py should be run before agglomerate.py.
+data_cleaner.py should be run before agglomerate.py. Run isolate_new_members.py last.

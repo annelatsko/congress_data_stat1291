@@ -1,6 +1,6 @@
 #Annie Latsko
 #creates a dataset with just the new members of congress that are entering that year
-#this is in a separate file b/c you guys might be good at R and be able to do this in R pretty easily; i'm bad at it.
+#this is in a separate file b/c you guys might be good at R and be able to do this in R pretty easily; I'm bad at it.
 
 import csv
 import sys
