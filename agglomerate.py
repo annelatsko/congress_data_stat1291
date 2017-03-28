@@ -35,7 +35,7 @@ def agglomerate(input_files, output_file):
 			if index == "termstart":
 				year_index = i
 			i+=1
-		h = header[0] + ',' + header[1] + ',' + header[2] + ',' + header[3] + ',' + header[4] + ',' + header[5]
+		h = header[0] + ',' + header[1] + ',' + header[2] + ',' + header[3] + ',' + header[4] + ',' + header[5] + ',' + header[6]
 		m.append(h)
 		for row in reader:
 			r_list = []

@@ -1,4 +1,4 @@
-chamber,state,party,incumbent,termstart,age,GDP,Annual GPD Percent Change,working age,65 and Older,Unemployment,growth percent
+chamber,state,party,incumbent,termstart,age,bioguide,GDP,Annual GPD Percent Change,working age,65 and Older,Unemployment,growth percent
 house,KY,D,Yes,1961,86.0,S000717,563.3,7.4,0.36,9.23,6.7,1.67
 house,MI,R,Yes,1961,85.3,H000683,563.3,7.4,0.36,9.23,6.7,1.67
 house,IL,D,Yes,1961,82.7,O000016,563.3,7.4,0.36,9.23,6.7,1.67
