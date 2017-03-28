@@ -242,12 +242,12 @@ def clean_congress(dirty,clean):
 	with open(dirty, 'rb') as f:
 		reader = csv.reader(f)
 		header = next(reader)
-		h = header[1] + ',' + header[8] + ',' + header[9] + ',' + header[10] + ',' + header[11] + ',' + header[12] + '\n'
+		h = header[1] + ',' + header[8] + ',' + header[9] + ',' + header[10] + ',' + header[11] + ',' + header[12] + ',' + header[2] +'\n'
 		cleaned_data.append(h)
 		for row in reader:	
 			year = clean_year(row[11])
 			if int(year) <= MAX_YEAR and int(year) >= MIN_YEAR:	
-				cleaned = row[1] + ',' + row[8] + ',' + row[9] + ',' + row[10] + ',' + year + ',' + row[12] + '\n'
+				cleaned = row[1] + ',' + row[8] + ',' + row[9] + ',' + row[10] + ',' + year + ',' + row[12] + ',' + row[2] + '\n'
 				cleaned_data.append(cleaned)
 	f.close()
 
