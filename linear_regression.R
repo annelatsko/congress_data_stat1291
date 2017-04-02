@@ -43,27 +43,18 @@ lm.fit.full <- lm(age~., data=congress) #r2 = 0.1814, but the improvement prolly
 #let's call this the best dataset
 lm.fit.important <- lm(age~termstart+chamber+party+state+GDP, data=congress) #r2 = 0.1074
 
-################################################################################
-##checking for problems that violate the assumptions of simple linear regression
-##TODO
-#1. Non linearity of the response, predictor relationships
-  #this is a problem, but whatever
-
-#2. Correlation of the error terms:
-
-#3. Non-constant variance of error terms
-
-#4. Outliers
-
-#5. High leverage points
-
-#6. Collinearity
-################################################################################
-
 #INTERACTIONS:
+#I kind of suggest that we don't do this. I don't think it really makes any sense.
 
+#NONLINEAR TRANSFORMATIONS
+lm.transformation <- lm(age~termstart+chamber+party+state+GDP+log(GDP), data=congress) #r2 = 0.1086 (made it slightly worse)
+anova(lm.fit.important,lm.transformation) #f-statistic = 19.149, p-value is near 0, suggesting that by adding the log term, we can improve the fit.
 
+lm.poly <- lm(age~termstart+chamber+party+state+GDP+poly(GDP,5), data=congress) #all of the terms (2-5) are significant?, w/ r2 = 0.1107
+#the above fit is better but the improvement might just be due to the fact that we added 5 more variables.
 
+#CONCLUSION:
+#I would suggest going with predicting age based off termstart, chamber, party, state, and GDP for the sake of parsimony.
 
 
 
