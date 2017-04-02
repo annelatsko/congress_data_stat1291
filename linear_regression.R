@@ -1,0 +1,70 @@
+#Annie Latsko
+#zoopin' thru the tests
+
+#file imports:
+path_to_file <- "C:/Users/Annie/congress_data_stat1291/full_data.csv"    #change this to your own path
+path_to_new_members_file <- "C:/Users/Annie/congress_data_stat1291/new_members.csv"
+
+#environment setup:
+library(memisc)
+
+##obtain data:
+congress <- read.csv(path_to_file)  # read csv file
+congress$bioguide <- NULL #bioguide is going to be useless to me
+new.members <- read.csv(path_to_new_members_file)
+
+
+##simple least squares: SINGLE PREDICTOR (all of these are shit)
+lm.fit.termstart <- lm(age~termstart, data=congress) #r2 = 0.01489
+lm.fit.chamber <- lm(age~chamber, data=congress) #r2 = 0.03513
+lm.fit.party <- lm(age~party, data=congress) #r2 = 0.001264
+lm.fit.state <- lm(age~state, data=congress) #r2 = 0.0331
+
+plot(congress$termstart,congress$age) #ugly ass plot w/data all over the place
+abline(lm.fit.termstart)
+plot(congress$chamber,congress$age) #boxplot, mean of house lower than mean of senate
+plot(congress$party,congress$age) #3 boxplots (for d, i, and r)
+plot(congress$state,congress$age) #50 boxplots, INTERESTING VISUAL
+#################################################################################
+#I briefly considered trying to fit all of the possible models.
+#The internet was VERY against this (data dredging), plus it seemed tedious AF
+#################################################################################
+
+##multiple least squares: ORIGINAL DATA (termstart,chamber,party,state)
+#note that this checks each state individually (and some of them are significant, which is weird)
+lm.fit.og <- lm(age~termstart+chamber+party+state, data=congress) #r2 = 0.08795
+
+##multiple least squares: FULL DATA 
+#below found that in this model, GDP is significant at highest level but nothing else is if you use an alpha of 0.05
+#probably just leave them out
+lm.fit.full <- lm(age~., data=congress) #r2 = 0.1814, but the improvement prolly just due to inclusion of variables
+
+##multiple least squares: STUFF THAT LOOKED IMPORTANT (termstart,chamber,party,state,gdp)
+#let's call this the best dataset
+lm.fit.important <- lm(age~termstart+chamber+party+state+GDP, data=congress) #r2 = 0.1074
+
+################################################################################
+##checking for problems that violate the assumptions of simple linear regression
+##TODO
+#1. Non linearity of the response, predictor relationships
+  #this is a problem, but whatever
+
+#2. Correlation of the error terms:
+
+#3. Non-constant variance of error terms
+
+#4. Outliers
+
+#5. High leverage points
+
+#6. Collinearity
+################################################################################
+
+#INTERACTIONS:
+
+
+
+
+
+
+
