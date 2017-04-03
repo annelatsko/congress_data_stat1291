@@ -39,7 +39,6 @@ table(glm.pred.median,test$agegroup_median)
 
 
 ##LDA
-agegroup_mean <- train$agegroup_mean
 lda.fit.mean <- lda(agegroup_mean~termstart+chamber+party+state+GDP, data=train)
 lda.fit.median <- lda(agegroup_median~termstart+chamber+party+state+GDP, data=train)
 lda.pred.mean <- predict(lda.fit.mean, test)
@@ -50,3 +49,26 @@ table(lda.class.mean,test$agegroup_mean)
 table(lda.class.median,test$agegroup_median)
 mean(lda.class.mean==test$agegroup_mean) #0.8088889
 mean(lda.class.median==test$agegroup_median) #0.6 #both are basically the same as logreg
+
+
+##QDA
+qda.fit.mean <- qda(agegroup_mean~termstart+chamber+party+state+GDP, data=train)
+qda.fit.median <- qda(agegroup_median~termstart+chamber+party+state+GDP, data=train)
+qda.class.mean <- predict(qda.fit.mean,test)$class
+qda.class.median <- predict(qda.fit.median,test)$class
+table(qda.class.mean,test$agegroup_mean)
+table(qda.class.median,test$agegroup_median)
+mean(qda.class.mean==test$agegroup_mean) #0.598512
+mean(qda.class.median==test$agegroup_median) #0.59852 #both are worse
+
+##KNN
+train.X <- cbind(train$termstart,train$chamber,train$party,train$state,train$GDP)
+test.X <- cbind(test$termstart,test$chamber,test$party,test$state,test$GDP)
+agegroup_mean <- train$agegroup_mean
+agegroup_median <- train$agegroup_median
+pred.knn.mean <- knn(train.X, test.X, agegroup_mean, k=10)
+pred.knn.median <- knn(train.X, test.X, agegroup_median, k=10)
+table(pred.knn.mean,test$agegroup_mean)
+table(pred.knn.median,test$agegroup_median)
+mean(pred.knn.mean==test$agegroup_mean) #0.787037
+mean(pred.knn.median==test$agegroup_median) #0.5807407
