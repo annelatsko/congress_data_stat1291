@@ -1,12 +1,10 @@
 #Annie Latsko
 #zoopin' thru the tests
+#LINEAR REGRESSION
 
 #file imports:
 path_to_file <- "C:/Users/Annie/congress_data_stat1291/full_data.csv"    #change this to your own path
 path_to_new_members_file <- "C:/Users/Annie/congress_data_stat1291/new_members.csv"
-
-#environment setup:
-library(memisc)
 
 ##obtain data:
 congress <- read.csv(path_to_file)  # read csv file
@@ -47,7 +45,7 @@ lm.fit.important <- lm(age~termstart+chamber+party+state+GDP, data=congress) #r2
 #I kind of suggest that we don't do this. I don't think it really makes any sense.
 
 #NONLINEAR TRANSFORMATIONS
-lm.transformation <- lm(age~termstart+chamber+party+state+GDP+log(GDP), data=congress) #r2 = 0.1086 (made it slightly worse)
+lm.transformation <- lm(age~termstart+chamber+party+state+GDP+log(GDP), data=congress) #r2 = 0.1086 (made it slightly better)
 anova(lm.fit.important,lm.transformation) #f-statistic = 19.149, p-value is near 0, suggesting that by adding the log term, we can improve the fit.
 
 lm.poly <- lm(age~termstart+chamber+party+state+GDP+poly(GDP,5), data=congress) #all of the terms (2-5) are significant?, w/ r2 = 0.1107
