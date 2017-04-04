@@ -4,17 +4,17 @@ import csv
 import sys
 
 #where the agglomerated data will go
-output_file = "full_data.csv"
+output_file = "full_data_with_old.csv"
 
 #where the agglomerated data is coming from
 #note that us_pop is not included b/c it doesn't tell us much
-gdp = "clean_data/gdp.csv"
-gdp_change = "clean_data/gdp_change.csv"
-working_percentage = "clean_data/percentage_25_64.csv"
-percentage_65_plus = "clean_data/percentage_65_plus.csv"
-unemployment = "clean_data/unemployment.csv"
-us_pop_change = "clean_data/us_population_change.csv"
-congress = "clean_data/congress-terms.csv"
+gdp = "gdp.csv"
+gdp_change = "gdp_change.csv"
+working_percentage = "percentage_25_64.csv"
+percentage_65_plus = "percentage_65_plus.csv"
+unemployment = "unemployment.csv"
+us_pop_change = "us_population_change.csv"
+congress = "congress-terms.csv"
 
 def add_to_header(m, row):	#appends the part of the header row that's not "Year" to the header for congress-terms
 	main_header = m[0]

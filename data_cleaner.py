@@ -18,32 +18,32 @@ import sys
  
 #change these to get the years that you want, note the info above
 #implemented so that these are inclusive
-MIN_YEAR = 1960	
-MAX_YEAR = 2010
+MIN_YEAR = 1900	
+MAX_YEAR = 2020
 
 og_65_plus = "dirty_data/OG_percent_of_population_65_older.csv"
-cleaned_65_plus = "clean_data/percentage_65_plus.csv"
+cleaned_65_plus = "percentage_65_plus.csv"
 
 og_25_to_64 = "dirty_data/OG_population_25_to_64.csv"
-cleaned_25_to_64 = "clean_data/percentage_25_64.csv"
+cleaned_25_to_64 = "percentage_25_64.csv"
 
 og_us_population = "dirty_data/OG_us_population.csv"
-cleaned_us_population = "clean_data/us_population.csv"
+cleaned_us_population = "us_population.csv"
 
 og_gdp = "dirty_data/OG_gdp_in_billions.csv"
-cleaned_gdp = "clean_data/gdp.csv"
+cleaned_gdp = "gdp.csv"
 
 og_unemployment = "dirty_data/OG_unemployment_data.csv"
-cleaned_unemployment = "clean_data/unemployment.csv"
+cleaned_unemployment = "unemployment.csv"
 
 og_gdp_change = "dirty_data/OG_gdp_change.csv"
-cleaned_gdp_change = "clean_data/gdp_change.csv"
+cleaned_gdp_change = "gdp_change.csv"
 
 og_pop_change = "dirty_data/OG_us_population_change_by_year.csv"
-cleaned_pop_change = "clean_data/us_population_change.csv"
+cleaned_pop_change = "us_population_change.csv"
 
 og_congress = "dirty_data/OG_congress-terms.csv"
-cleaned_congress = "clean_data/congress-terms.csv"
+cleaned_congress = "congress-terms.csv"
 
 '''
 fixes date formatting
