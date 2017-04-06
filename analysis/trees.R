@@ -1,8 +1,6 @@
 #Annie Latsko
 #trees
 
-
-
 #file imports:
 path_to_file <- "C:/Users/Annie/congress_data_stat1291/full_data.csv"    #change this to your own path
 path_to_new_members_file <- "C:/Users/Annie/congress_data_stat1291/new_members.csv"
@@ -51,3 +49,25 @@ set.seed(16)
 boost.congress<-gbm(age~termstart+chamber+party+state+GDP,data=congress[train,],distribution="gaussian",n.trees=5000,interaction.depth=4)
 yhat.boost<-predict(boost.congress,newdata=congress[-train,],n.trees=5000)
 mean((yhat.boost-congress.test)^2) #97.12298
+
+##############checking to see if permuting the data in each column messes with how well randomforest performs
+termstart.perm<-sample(congress$termstart,size=nrow(congress),replace=F,prob=NULL)
+age.perm<-sample(congress$age,size=nrow(congress),replace=F,prob=NULL)
+state.perm<-sample(congress$state,size=nrow(congress),replace=F,prob=NULL)
+party.perm<-sample(congress$party,size=nrow(congress),replace=F,prob=NULL)
+chamber.perm<-sample(congress$chamber,size=nrow(congress),replace=F,prob=NULL)
+GDP.perm<-sample(congress$GDP,size=nrow(congress),replace=F,prob=NULL)
+df<-data.frame(age.perm,termstart.perm,chamber.perm,state.perm,party.perm,GDP.perm)
+names(df)<-c("age","termstart","chamber","state","party","GDP")
+train.perm<- sample(1:nrow(df),nrow(df)/2)
+test.perm<-congress[-train,"age"]
+rf.perm<-randomForest(age~termstart+chamber+party+state+GDP,data=df,subset=train.perm,mtry=2,importance=T)
+
+
+
+rf.perm #-7.11 % variance explained, meaning that we would be better off guessing than using this crazy permuted model
+yhat.perm<-predict(rf.perm,newdata=df[-train,])
+mean((yhat.perm-test.perm)^2) #122.5557 = test mse
+importance(rf.perm) #all are negative $IncMSE
+
+
