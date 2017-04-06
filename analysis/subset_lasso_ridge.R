@@ -2,11 +2,12 @@
 #best subset selection, lasso, and ridge
 
 #file imports:
-path_to_file <- "C:/Users/Annie/congress_data_stat1291/full_data.csv"    #change this to your own path
+path_to_file <- "C:/Users/user/congress_data_stat1291/AG_Final_New_Member_Data.csv"    #change this to your own path
 
 ##obtain data:
 congress <- read.csv(path_to_file)  # read csv file
 congress$bioguide <- NULL #bioguide is going to be useless to me
+congress$incumbent <- NULL
 
 
 ##best subset selection
@@ -58,9 +59,9 @@ pred<-test.mat [,names(coefi)]%*% coefi
 val.errors[i]<-mean((congress$age[test]-pred)^2)
 }
 which.min(val.errors) #result is 7
-coef(regfit.best,7)
+coef(regfit.best,3)
 regfit.best<-regsubsets(age~termstart+chamber+party+state+GDP,data=congress,nvmax=8,really.big=T)
-coef(regfit.best,7)
+coef(regfit.best,3)
 #result of above:
 #BEST MODEL: y = 603.369706735 +-0.280877569(termstart) + 5.167036169(chambersenate) + -1.005317810(partyR) + -3.504502013(stateIN) + -5.961384878(stateME) + -4.623567832(stateOK) + 0.001239108(GDP) 
 #RSS: 1516168

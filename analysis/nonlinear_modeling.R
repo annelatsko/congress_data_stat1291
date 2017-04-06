@@ -2,13 +2,12 @@
 #Nonlinear Modeling
 
 #file imports:
-path_to_file <- "C:/Users/user/congress_data_stat1291/full_data.csv"    #change this to your own path
-path_to_new_members_file <- "C:/Users/user/congress_data_stat1291/new_members.csv"
+path_to_file <- "C:/Users/user/congress_data_stat1291/AG_Final_New_Member_Data.csv"    #change this to your own path
 
 ##obtain data:
 congress <- read.csv(path_to_file)  # read csv file
 congress$bioguide <- NULL #bioguide is going to be useless to me
-new.members <- read.csv(path_to_new_members_file)
+congress$incumbent <- NULL
 
 
 ##polynomial regression

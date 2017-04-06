@@ -3,14 +3,12 @@
 #LINEAR REGRESSION
 
 #file imports:
-path_to_file <- "C:/Users/Annie/congress_data_stat1291/full_data.csv"    #change this to your own path
-path_to_new_members_file <- "C:/Users/Annie/congress_data_stat1291/new_members.csv"
+path_to_file <- "C:/Users/user/congress_data_stat1291/AG_Final_New_Member_Data.csv"    #change this to your own path
 
 ##obtain data:
 congress <- read.csv(path_to_file)  # read csv file
 congress$bioguide <- NULL #bioguide is going to be useless to me
-new.members <- read.csv(path_to_new_members_file)
-
+congress$incumbent <- NULL
 
 ##simple least squares: SINGLE PREDICTOR (all of these are shit)
 lm.fit.termstart <- lm(age~termstart, data=congress) #r2 = 0.01489
@@ -35,7 +33,7 @@ lm.fit.og <- lm(age~termstart+chamber+party+state, data=congress) #r2 = 0.08795
 ##multiple least squares: FULL DATA 
 #below found that in this model, GDP is significant at highest level but nothing else is if you use an alpha of 0.05
 #probably just leave them out
-lm.fit.full <- lm(age~., data=congress) #r2 = 0.1814, but the improvement prolly just due to inclusion of variables
+lm.fit.full <- lm(age~chamber+state+party+Annual.GPD.Percent.Change+working.age+X65.and.Older, data=congress) #r2 = 0.1814, but the improvement prolly just due to inclusion of variables
 
 ##multiple least squares: STUFF THAT LOOKED IMPORTANT (termstart,chamber,party,state,gdp)
 #let's call this the best dataset
