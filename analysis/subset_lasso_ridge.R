@@ -3,12 +3,10 @@
 
 #file imports:
 path_to_file <- "C:/Users/Annie/congress_data_stat1291/full_data.csv"    #change this to your own path
-path_to_new_members_file <- "C:/Users/Annie/congress_data_stat1291/new_members.csv"
 
 ##obtain data:
 congress <- read.csv(path_to_file)  # read csv file
 congress$bioguide <- NULL #bioguide is going to be useless to me
-new.members <- read.csv(path_to_new_members_file)
 
 
 ##best subset selection
@@ -65,7 +63,7 @@ regfit.best<-regsubsets(age~termstart+chamber+party+state+GDP,data=congress,nvma
 coef(regfit.best,7)
 #result of above:
 #BEST MODEL: y = 603.369706735 +-0.280877569(termstart) + 5.167036169(chambersenate) + -1.005317810(partyR) + -3.504502013(stateIN) + -5.961384878(stateME) + -4.623567832(stateOK) + 0.001239108(GDP) 
-
+#RSS: 1516168
 
 ##Ridge Regression
 x<-model.matrix(age~termstart+chamber+party+state+GDP,congress)[,-1]
