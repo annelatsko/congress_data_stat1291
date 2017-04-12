@@ -55,21 +55,119 @@ for(i in 1:50){
   slope.list[i]<-slope
 }
 #-------------------------------------------------------------------------------------------
-require(reshape2)
+
 slopes.df <- data.frame(state.list,slope.list)
 names(slopes.df) <- c("state","slope")
 negative.slopes.df <- slopes.df[slopes.df$slope<0,]
 
 #results from negative.slopes.df
 #state        slope
-#4     AR -0.103159341  <--------- this one looks big 
+#4     AR -0.103159341  <--------- this one looks big : TESTED WAS SIGNIFICANT W/R/T A NEGATIVE TREND
 #18    LA -0.045869521
-#24    MS -0.090826694
+#24    MS -0.090826694  <--------- TESTED WAS SIGNIFICANT W/R/T A NEGATIVE TREND
 #27    NE -0.040955128
 #29    NH -0.037619231
 #34    ND -0.067980128
 #35    OH -0.004584404
 #36    OK -0.074165133
 #38    PA -0.013949213
-#41    SD -0.194771795  <--------- this one does too
+#41    SD -0.194771795  <--------- this one does too : TESTED WAS SIGNIFICANT W/R/T A NEGATIVE TREND
 
+install.packages("coin")
+require(coin)
+
+####Testing for Significance
+
+##ARKANSAS
+state <- congress[congress$state == 'AR',] ##<------------------------------
+state.means<- rep(NA,25)
+
+for(j in 1:25){
+  x<-state[state$termstart==years[j],]
+  state.means[j]<- mean(x$age)
+}
+
+##this combines the years vector with the congress.means vector into a data frame
+state.means.df<-data.frame(years,state.means)
+colnames(state.means.df)<-c(x_name,y_name)
+
+#linear regression:
+state.fit<-lm(mean~.,data=state.means.df)#0.0661=slope
+congress.test<-independence_test(mean~.,data=state.means.df,teststat="scalar",alternative="less")
+#Asymptotic General Independence Test
+
+#data:  mean by year
+#Z = -2.0364, p-value = 0.02085
+#alternative hypothesis: less
+##########################SIGNIFICANT NEGATIVE TREND
+
+
+##South Dakota
+state <- congress[congress$state == 'SD',]
+state.means<- rep(NA,25)
+
+for(j in 1:25){
+  x<-state[state$termstart==years[j],]
+  state.means[j]<- mean(x$age)
+}
+
+##this combines the years vector with the congress.means vector into a data frame
+state.means.df<-data.frame(years,state.means)
+colnames(state.means.df)<-c(x_name,y_name)
+
+#linear regression:
+state.fit<-lm(mean~.,data=state.means.df)#0.0661=slope
+congress.test<-independence_test(mean~.,data=state.means.df,teststat="scalar",alternative="less")
+#Asymptotic General Independence Test
+
+#data:  mean by year
+#Z = -2.659, p-value = 0.003919
+#alternative hypothesis: less
+############################SIGNIFICANT NEGATIVE TREND
+
+
+## Mississippi
+state <- congress[congress$state == 'MS',]
+state.means<- rep(NA,25)
+
+for(j in 1:25){
+  x<-state[state$termstart==years[j],]
+  state.means[j]<- mean(x$age)
+}
+
+##this combines the years vector with the congress.means vector into a data frame
+state.means.df<-data.frame(years,state.means)
+colnames(state.means.df)<-c(x_name,y_name)
+
+#linear regression:
+state.fit<-lm(mean~.,data=state.means.df)#0.0661=slope
+congress.test<-independence_test(mean~.,data=state.means.df,teststat="scalar",alternative="less")
+#Asymptotic General Independence Test
+
+#data:  mean by year
+#Z = -2.659, p-value = 0.003919
+#alternative hypothesis: less
+############################SIGNIFICANT NEGATIVE TREND
+
+##Oklahoma
+state <- congress[congress$state == 'OK',]
+state.means<- rep(NA,25)
+
+for(j in 1:25){
+  x<-state[state$termstart==years[j],]
+  state.means[j]<- mean(x$age)
+}
+
+##this combines the years vector with the congress.means vector into a data frame
+state.means.df<-data.frame(years,state.means)
+colnames(state.means.df)<-c(x_name,y_name)
+
+#linear regression:
+state.fit<-lm(mean~.,data=state.means.df)#0.0661=slope
+congress.test<-independence_test(mean~.,data=state.means.df,teststat="scalar",alternative="less")
+#Asymptotic General Independence Test
+
+#data:  mean by year
+#Z = -1.062, p-value = 0.1441
+#alternative hypothesis: less
+############################NOT A SIGNIFICANT NEGATIVE TREND
